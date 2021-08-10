@@ -1,9 +1,103 @@
 <div class="container-fluid main">
   <div class="container-fluid wrapper"></div>
-  <div class="top">
-  </div>
+  <div class="top"></div>
   <div class="top-image">
+    <mat-spinner
+      style="
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      "
+    ></mat-spinner>
   </div>
   <div class="container my-4 top-inner">
+    <h1 class="logo-text typing-logo display-4">Get nida id details now.</h1>
+
+    <form class="form" style="position: relative">
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>ID NUMBER</mat-label>
+        <input
+          type="nida"
+          class="input-text"
+          matInput
+          placeholder="xxx-xxx-xxx"
+        />
+        <mat-icon color="primary" matSuffix>edit</mat-icon>
+      </mat-form-field>
+    </form>
+
+    <mat-card class="id-card">
+      <mat-card-content>
+        <mat-list *ngIf="(data | async) as obj">
+
+          <mat-list-item>
+            <div class="row details gap-2 w-100">
+              <div class="col-md-5 text-muted">first name</div>
+              <div class="col-md-5">{{obj["FIRSTNAME"]}} </div>
+            </div>
+          </mat-list-item>
+          <mat-divider [inset]="true"> </mat-divider>
+
+          <mat-list-item>
+            <div class="row details gap-2 w-100">
+              <div class="col-md-5 text-muted">second name</div>
+              <div class="col-md-5">{{obj["MIDDLENAME"]}}</div>
+            </div>
+          </mat-list-item>
+          <mat-divider [inset]="true"> </mat-divider>
+
+          <mat-list-item>
+            <div class="row details gap-2 w-100">
+              <div class="col-md-5 text-muted">second name</div>
+              <div class="col-md-5">{{obj["SURNAME"]}}</div>
+            </div>
+          </mat-list-item>
+          <mat-divider [inset]="true"> </mat-divider>
+
+          <mat-list-item>
+            <div class="row details gap-2 w-100">
+              <div class="col-md-5 text-muted">second name</div>
+              <div class="col-md-5">{{obj["SEX"]}}</div>
+            </div>
+          </mat-list-item>
+          <mat-divider [inset]="true"> </mat-divider>
+
+          <mat-list-item>
+            <div class="row details gap-2 w-100">
+              <div class="col-md-5 text-muted">second name</div>
+              <div class="col-md-5">{{obj["DATEOFBIRTH"]}}</div>
+            </div>
+          </mat-list-item>
+          <mat-divider [inset]="true"> </mat-divider>
+
+          <mat-list-item>
+            <div class="row details gap-2 w-100">
+              <div class="col-md-5 text-muted">second name</div>
+              <div class="col-md-5">{{obj["RESIDENTREGION"]}}</div>
+            </div>
+          </mat-list-item>
+          <mat-divider [inset]="true"> </mat-divider>
+
+          <mat-list-item>
+            <div class="row details gap-2 w-100">
+              <div class="col-md-5 text-muted">second name</div>
+              <div class="col-md-5">{{obj["RESIDENTDISTRICT"]}}</div>
+            </div>
+          </mat-list-item>
+          <mat-divider [inset]="true"> </mat-divider>
+
+          <mat-list-item>
+            <div class="row details gap-2 w-100">
+              <div class="col-md-5 text-muted">second name</div>
+              <div class="col-md-5">{{obj["RESIDENTWARD"]}}</div>
+            </div>
+          </mat-list-item>
+          <mat-divider [inset]="true"> </mat-divider>
+
+
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
