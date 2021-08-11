@@ -2,36 +2,40 @@
   <div class=" wrapper"></div>
   <div class="top"></div>
   <div class="top-image">
-    <mat-spinner style="
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      "></mat-spinner>
     <img [src]="photo" alt="photo">
   </div>
+  <mat-spinner
+      *ngIf="loading"
+     style="
+        position: relative;
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+        transform: translate(-50%, -50%);
+      "></mat-spinner>
   <div class="container my-5 top-inner">
     <h1 class="logo-text typing-logo display-4">Get nida id details now.</h1>
 
-    <form class="form" style="position: relative">
+    <form class="form" [formGroup]="ninForm" style="position: relative">
       <mat-form-field class="w-100" appearance="fill">
         <mat-label>ID NUMBER</mat-label>
-        <input type="nida" class="input-text" matInput placeholder="xxx-xxx-xxx" />
+        <input #nin autocomplete="off" type="nida" formControlName="nin" maxlength="20" class="input-text" matInput placeholder="xxx-xxx-xxx" />
         <mat-icon color="primary" matSuffix>edit</mat-icon>
+        <mat-hint align="end">remaining {{20 - nin.value.length}}</mat-hint>
+        <mat-hint *ngIf="pattern_error">numbers only required.</mat-hint>
       </mat-form-field>
     </form>
 
     <mat-card class="id-card">
       <mat-card-content>
         <mat-list class="" *ngFor="let item of (data | async) | keyvalue">
-
           <mat-list-item>
             <div class="row details gap-2 w-100">
               <div class="col-md-4 text-muted">{{item.key}}</div>
-              <div class="col-md-8 display-4️⃣">{{item.value}}</div>
+              <div class="col-md-8">{{item.value}}</div>
             </div>
           </mat-list-item>
-          <mat-divider [inset]="true"> </mat-divider>
+          <hr>
         </mat-list>
         <mat-list>
           <mat-list-item>
@@ -40,6 +44,7 @@
             </div>
           </mat-list-item>
         </mat-list>
+        <hr>
       </mat-card-content>
     </mat-card>
     <hr>
@@ -53,7 +58,7 @@
         </a></span>
       </mat-card-actions>
       <mat-divider
-        [inset]="true">
+        [inset]="false">
       </mat-divider>
       <mat-card-content class="pt-2">
         <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="jack-k-b7354017a" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://tz.linkedin.com/in/jack-k-b7354017a?trk=profile-badge"></a></div>                     
