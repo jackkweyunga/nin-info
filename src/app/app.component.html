@@ -1,102 +1,62 @@
 <div class="container-fluid main">
-  <div class="container-fluid wrapper"></div>
+  <div class=" wrapper"></div>
   <div class="top"></div>
   <div class="top-image">
-    <mat-spinner
-      style="
+    <mat-spinner style="
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-      "
-    ></mat-spinner>
+      "></mat-spinner>
+    <img [src]="photo" alt="photo">
   </div>
-  <div class="container my-4 top-inner">
+  <div class="container my-5 top-inner">
     <h1 class="logo-text typing-logo display-4">Get nida id details now.</h1>
 
     <form class="form" style="position: relative">
       <mat-form-field class="w-100" appearance="fill">
         <mat-label>ID NUMBER</mat-label>
-        <input
-          type="nida"
-          class="input-text"
-          matInput
-          placeholder="xxx-xxx-xxx"
-        />
+        <input type="nida" class="input-text" matInput placeholder="xxx-xxx-xxx" />
         <mat-icon color="primary" matSuffix>edit</mat-icon>
       </mat-form-field>
     </form>
 
     <mat-card class="id-card">
       <mat-card-content>
-        <mat-list *ngIf="(data | async) as obj">
+        <mat-list class="" *ngFor="let item of (data | async) | keyvalue">
 
           <mat-list-item>
             <div class="row details gap-2 w-100">
-              <div class="col-md-5 text-muted">first name</div>
-              <div class="col-md-5">{{obj["FIRSTNAME"]}} </div>
+              <div class="col-md-4 text-muted">{{item.key}}</div>
+              <div class="col-md-8 display-4️⃣">{{item.value}}</div>
             </div>
           </mat-list-item>
           <mat-divider [inset]="true"> </mat-divider>
-
-          <mat-list-item>
-            <div class="row details gap-2 w-100">
-              <div class="col-md-5 text-muted">second name</div>
-              <div class="col-md-5">{{obj["MIDDLENAME"]}}</div>
-            </div>
-          </mat-list-item>
-          <mat-divider [inset]="true"> </mat-divider>
-
-          <mat-list-item>
-            <div class="row details gap-2 w-100">
-              <div class="col-md-5 text-muted">second name</div>
-              <div class="col-md-5">{{obj["SURNAME"]}}</div>
-            </div>
-          </mat-list-item>
-          <mat-divider [inset]="true"> </mat-divider>
-
-          <mat-list-item>
-            <div class="row details gap-2 w-100">
-              <div class="col-md-5 text-muted">second name</div>
-              <div class="col-md-5">{{obj["SEX"]}}</div>
-            </div>
-          </mat-list-item>
-          <mat-divider [inset]="true"> </mat-divider>
-
-          <mat-list-item>
-            <div class="row details gap-2 w-100">
-              <div class="col-md-5 text-muted">second name</div>
-              <div class="col-md-5">{{obj["DATEOFBIRTH"]}}</div>
-            </div>
-          </mat-list-item>
-          <mat-divider [inset]="true"> </mat-divider>
-
-          <mat-list-item>
-            <div class="row details gap-2 w-100">
-              <div class="col-md-5 text-muted">second name</div>
-              <div class="col-md-5">{{obj["RESIDENTREGION"]}}</div>
-            </div>
-          </mat-list-item>
-          <mat-divider [inset]="true"> </mat-divider>
-
-          <mat-list-item>
-            <div class="row details gap-2 w-100">
-              <div class="col-md-5 text-muted">second name</div>
-              <div class="col-md-5">{{obj["RESIDENTDISTRICT"]}}</div>
-            </div>
-          </mat-list-item>
-          <mat-divider [inset]="true"> </mat-divider>
-
-          <mat-list-item>
-            <div class="row details gap-2 w-100">
-              <div class="col-md-5 text-muted">second name</div>
-              <div class="col-md-5">{{obj["RESIDENTWARD"]}}</div>
-            </div>
-          </mat-list-item>
-          <mat-divider [inset]="true"> </mat-divider>
-
-
         </mat-list>
+        <mat-list>
+          <mat-list-item>
+            <div class="row">
+              <img mat-card-image [src]="signature" alt="signature">
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+    <hr>
+    <mat-card>
+      <mat-card-actions>
+        <span>Connect with developers. </span>
+        <span styles="flex: 1 auto;"></span>
+        <span>
+          <a mat-flat-button color="primary" href="https://github.com/jackkweyunga">
+          view Github Profile 
+        </a></span>
+      </mat-card-actions>
+      <mat-divider
+        [inset]="true">
+      </mat-divider>
+      <mat-card-content class="pt-2">
+        <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="jack-k-b7354017a" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://tz.linkedin.com/in/jack-k-b7354017a?trk=profile-badge"></a></div>                     
       </mat-card-content>
     </mat-card>
   </div>
