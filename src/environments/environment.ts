@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  api_url: "http://192.168.56.1:5000/",
   showSampleData: false
 };
 

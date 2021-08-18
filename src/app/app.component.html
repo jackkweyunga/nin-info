@@ -4,23 +4,26 @@
   <div class="top-image">
     <img [src]="photo" alt="photo">
   </div>
-  <mat-spinner
-      *ngIf="loading"
-     style="
-        position: relative;
-        top: 50%;
-        left: 50%;
-        z-index: 1;
-        transform: translate(-50%, -50%);
-      "></mat-spinner>
+
   <div class="container my-5 top-inner">
     <h1 class="logo-text typing-logo display-4">Get nida id details now.</h1>
 
     <form class="form" [formGroup]="ninForm" style="position: relative">
-      <mat-form-field class="w-100" appearance="fill">
+      <mat-form-field color="accent" class="w-100 text-white" appearance="fill">
         <mat-label>ID NUMBER</mat-label>
-        <input #nin autocomplete="off" type="nida" formControlName="nin" maxlength="20" class="input-text" matInput placeholder="xxx-xxx-xxx" />
-        <mat-icon color="primary" matSuffix>edit</mat-icon>
+        <input #nin autocomplete="off" type="nida" formControlName="nin" maxlength="20" class="input-text" matInput
+          placeholder="xxx-xxx-xxx" />
+        <mat-icon class="text-white text-center" matSuffix>
+          search
+
+          <mat-spinner [diameter]="40" [hidden]="!(loading | async)" [strokeWidth]="2" color="accent" style="
+          position:absolute;
+          top: 50%;
+          left: 50%;
+          z-index: 1;
+          transform: translate(-50%, -50%);
+        "></mat-spinner>
+        </mat-icon>
         <mat-hint align="end">remaining {{20 - nin.value.length}}</mat-hint>
         <mat-hint *ngIf="pattern_error">numbers only required.</mat-hint>
       </mat-form-field>
@@ -37,13 +40,31 @@
           </mat-list-item>
           <hr>
         </mat-list>
-        <mat-list>
+        <mat-list *ngIf="!(errorLoading | async)">
           <mat-list-item>
             <div class="row">
               <img mat-card-image [src]="signature" alt="signature">
             </div>
           </mat-list-item>
         </mat-list>
+
+        <mat-list *ngIf="(errorLoading | async)">
+          <mat-list-item>
+            <strong class="text-danger">Network Error 🚨</strong>
+          </mat-list-item>
+          <mat-list-item>
+            <button color="warm" class="text-light" mat-raised-button>Reload</button>
+          </mat-list-item>
+        </mat-list>
+
+        <mat-list *ngIf="wrong_input">
+          <mat-list-item>
+            <div class="alert alert-danger" role="alert">
+              <strong>Number Does Not Exist, yet!</strong>
+            </div>
+          </mat-list-item>
+        </mat-list>
+
         <hr>
       </mat-card-content>
     </mat-card>
@@ -54,14 +75,16 @@
         <span styles="flex: 1 auto;"></span>
         <span>
           <a mat-flat-button color="primary" href="https://github.com/jackkweyunga">
-          view Github Profile 
-        </a></span>
+            view Github Profile
+          </a></span>
       </mat-card-actions>
-      <mat-divider
-        [inset]="false">
+      <mat-divider [inset]="false">
       </mat-divider>
       <mat-card-content class="pt-2">
-        <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="jack-k-b7354017a" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://tz.linkedin.com/in/jack-k-b7354017a?trk=profile-badge"></a></div>                     
+        <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
+          data-type="VERTICAL" data-vanity="jack-k-b7354017a" data-version="v1"><a
+            class="badge-base__link LI-simple-link"
+            href="https://tz.linkedin.com/in/jack-k-b7354017a?trk=profile-badge"></a></div>
       </mat-card-content>
     </mat-card>
   </div>

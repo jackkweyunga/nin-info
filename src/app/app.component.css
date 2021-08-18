@@ -132,3 +132,10 @@
   font-size: 1.5rem;
   color: #ffffff;
 }
+
+.inb {
+  z-index: 2;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}

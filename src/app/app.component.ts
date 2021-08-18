@@ -2,26 +2,35 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { tap } from "rxjs/operators";
+import { BehaviorSubject, from, Observable, of } from 'rxjs';
+import { take, tap } from "rxjs/operators";
 import { environment } from "../environments/environment";
-
+import Nid, { Nidjs } from "nidjs";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
 
-  data: Observable<any> = of({});
+  _data: BehaviorSubject<any> = new BehaviorSubject<any>({})
+  data = this._data.asObservable();
   signature: string | undefined = "../assets/images/signature_line.png";
-  photo: string | undefined = "../assets/images/user_image.png" ;
-  loading: boolean = false;
-  loaded: Observable<any> = of({});
+  photo: string | undefined = "../assets/images/user_image.png";
+
+  _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+
+  loading: Observable<boolean> = this._loading.asObservable()
+
+
+  _errorLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  errorLoading: Observable<any> = this._errorLoading.asObservable();
 
   pattern_error: boolean = false;
 
   ninForm: FormGroup = new FormGroup({});
+  wrong_input: boolean = false;
 
   constructor(
     public http: HttpClient,
@@ -29,73 +38,54 @@ export class AppComponent implements OnInit {
   ) { }
 
   //  loading test data
-  async getSampleData() {
+  getSampleData() {
     let file: string = "../assets/storage/sample_data.json";
     return this.http.get(file);
   }
-
-  // loading actual data
-  async getData(nin: string) {
-    let url = environment.api_url + "nida";
-    return this.http.post(url, { "id": nin });
-  }
-
 
   convertDataUrl(dataUrl: any) {
     if (dataUrl) {
       return "data:image/png;base64," + dataUrl
     }
-      return
+    return
   }
 
-  preprocess(loaded: Observable<any>): Observable<any> {
-    return loaded.pipe(
-      tap((data: any) => {
-        let photo = data["PHOTO"];
-        this.photo = this.convertDataUrl(photo)===undefined?this.photo : this.convertDataUrl(photo);
-        
-        let signature = data["SIGNATURE"];
-        this.signature = this.convertDataUrl(signature)===undefined?this.signature : this.convertDataUrl(signature);
+  preprocess(data: any) {
 
-        delete data["Lastname"];
-        delete data["Firstname"];
-        delete data["Surname"];
-        delete data["Sex"];
+    if (data) {
+      let photo = data["PHOTO"];
+      this.photo = this.convertDataUrl(photo) === undefined ? this.photo : this.convertDataUrl(photo);
 
-        delete data["PHOTO"];
-        delete data["SIGNATURE"];
+      let signature = data["SIGNATURE"];
+      this.signature = this.convertDataUrl(signature) === undefined ? this.signature : this.convertDataUrl(signature);
 
-      })
-    );
-  }
+      delete data["LastName"];
+      delete data["FirstName"];
+      delete data["SurName"];
+      delete data["Sex"];
 
-
-  async process_data(nin: string) {
-    this.loading = true;
-    if (nin === "" && environment.showSampleData) {
-      this.loaded = await this.getSampleData()
+      delete data["PHOTO"];
+      delete data["SIGNATURE"];
     }
 
-    if (nin !== "") {
-      let _loaded = await this.getData(nin)
-      _loaded.subscribe((j: any) => {
-        this.loaded = of(j["data"])  
-      })
-    }
-
-    let processed = this.preprocess(this.loaded);
-    this.data = processed
-
-    this.loading = false;
+    return data
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+
+    this.loading.subscribe(l => console.log(l));
 
     this.ninForm = this.fb.group({
       nin: ["", [Validators.pattern("[0-9]*$")]],
     });
 
     this.ninForm.valueChanges.subscribe((data) => {
+
+      this._data.next({});
+
+      this.signature = "../assets/images/signature_line.png";
+      this.photo = "../assets/images/user_image.png";
+
       let nin = data["nin"];
 
       if (this.ninForm.get('nin')?.hasError('pattern')) {
@@ -104,18 +94,40 @@ export class AppComponent implements OnInit {
 
       if (nin.length == 20) {
         if (this.ninForm.valid) {
-          console.log(data["nin"]);
-          this.process_data(nin);
-        }
+          // console.log(data["nin"]);
+
+          const nida = new Nidjs()
+          this._loading.next(true);
+          from(nida.loadDetails(nin)).subscribe((dt: any) => {
+            console.log(dt);
+
+            if (dt === undefined) {
+              this.wrong_input = true;
+              this.data = of({})
+              this.signature = "../assets/images/signature_line.png";
+              this.photo = "../assets/images/user_image.png";
+            } else {
+              data = this.preprocess(dt);
+              this._data.next(data);
+            }
+            this._loading.next(false);
+          }, err => {
+            console.log(err.Error);
+            this._errorLoading.next(true)
+          });
+        };
 
       }
 
-    })
+    });
 
     if (environment.showSampleData === true) {
-      this.process_data("");
+      this.getSampleData().subscribe((f: any) => {
+        f = this.preprocess(f)
+        this._data.next(f);
+        this._loading.next(false);
+      });
     }
 
   }
-
 }
