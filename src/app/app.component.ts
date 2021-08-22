@@ -3,9 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, from, Observable, of } from 'rxjs';
-import { take, tap } from "rxjs/operators";
-import { environment } from "../environments/environment";
-import Nid, { Nidjs } from "nidjs";
+import { Nidjs } from "nidjs";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -120,14 +118,6 @@ export class AppComponent implements OnInit {
       }
 
     });
-
-    if (environment.showSampleData === true) {
-      this.getSampleData().subscribe((f: any) => {
-        f = this.preprocess(f)
-        this._data.next(f);
-        this._loading.next(false);
-      });
-    }
 
   }
 }
