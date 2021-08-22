@@ -1,33 +1,35 @@
-<div class="container-fluid main">
-  <div class=" wrapper"></div>
-  <div class="top"></div>
-  <div class="top-image">
-    <img [src]="photo" alt="photo">
-  </div>
+<div class=" wrapper"></div>
+<!-- <div class="top"></div> -->
+
+<div class="main">
+
+
+  <form class="form nin-form" [formGroup]="ninForm" style="position: relative">
+    <mat-form-field color="accent" class="w-100 text-white" appearance="fill">
+      <mat-label>NIN</mat-label>
+      <input #nin autocomplete="off" type="nida" formControlName="nin" maxlength="20" class="input-text" matInput
+        placeholder="xxx-xxx-xxx" />
+      <mat-icon class="text-white text-center" matSuffix>
+        search
+
+        <mat-spinner [diameter]="40" [hidden]="!(loading | async)" [strokeWidth]="2" color="accent" style="
+        position:absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+        transform: translate(-50%, -50%);
+      "></mat-spinner>
+      </mat-icon>
+      <mat-hint align="end">remaining {{20 - nin.value.length}}</mat-hint>
+      <mat-hint *ngIf="pattern_error">numbers only required.</mat-hint>
+    </mat-form-field>
+  </form>
 
   <div class="container my-5 top-inner">
-    <h1 class="logo-text typing-logo display-4">Get nida id details now.</h1>
-
-    <form class="form" [formGroup]="ninForm" style="position: relative">
-      <mat-form-field color="accent" class="w-100 text-white" appearance="fill">
-        <mat-label>ID NUMBER</mat-label>
-        <input #nin autocomplete="off" type="nida" formControlName="nin" maxlength="20" class="input-text" matInput
-          placeholder="xxx-xxx-xxx" />
-        <mat-icon class="text-white text-center" matSuffix>
-          search
-
-          <mat-spinner [diameter]="40" [hidden]="!(loading | async)" [strokeWidth]="2" color="accent" style="
-          position:absolute;
-          top: 50%;
-          left: 50%;
-          z-index: 1;
-          transform: translate(-50%, -50%);
-        "></mat-spinner>
-        </mat-icon>
-        <mat-hint align="end">remaining {{20 - nin.value.length}}</mat-hint>
-        <mat-hint *ngIf="pattern_error">numbers only required.</mat-hint>
-      </mat-form-field>
-    </form>
+    <!-- <h1 class="logo-text typing-logo display-4">Get nida id details now.</h1> -->
+    <div class="top-image">
+      <img [src]="photo" alt="photo">
+    </div>
 
     <mat-card class="id-card">
       <mat-card-content>
@@ -40,7 +42,7 @@
           </mat-list-item>
           <hr>
         </mat-list>
-        <mat-list *ngIf="!(errorLoading | async)">
+        <mat-list *ngIf="!(errorLoading | async) && !(wrong_input)">
           <mat-list-item>
             <div class="row">
               <img mat-card-image [src]="signature" alt="signature">
@@ -59,8 +61,8 @@
 
         <mat-list *ngIf="wrong_input">
           <mat-list-item>
-            <div class="alert alert-danger" role="alert">
-              <strong>Number Does Not Exist, yet!</strong>
+            <div class="alert alert-danger w-100 m-auto" role="alert">
+              <strong>NIN Does Not Exist.</strong>
             </div>
           </mat-list-item>
         </mat-list>

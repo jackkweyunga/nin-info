@@ -101,11 +101,12 @@ export class AppComponent implements OnInit {
 
             if (dt === undefined) {
               this.wrong_input = true;
-              this.data = of({})
+              this._data.next({});
               this.signature = "../assets/images/signature_line.png";
               this.photo = "../assets/images/user_image.png";
             } else {
               data = this.preprocess(dt);
+              this.wrong_input = false;
               this._data.next(data);
             }
             this._loading.next(false);
