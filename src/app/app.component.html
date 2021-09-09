@@ -6,9 +6,9 @@
 
   <form class="form nin-form" [formGroup]="ninForm" style="position: relative">
     <mat-form-field color="accent" class="w-100 text-white" appearance="fill">
-      <mat-label>NIN</mat-label>
+      <mat-label>Tafuta kwa namba yako ya nida.</mat-label>
       <input #nin autocomplete="off" type="nida" formControlName="nin" maxlength="20" class="input-text" matInput
-        placeholder="xxx-xxx-xxx" />
+        placeholder="XXXXXXXXXXXXXXXXXXXX" />
       <mat-icon class="text-white text-center" matSuffix>
         search
 
@@ -20,15 +20,15 @@
         transform: translate(-50%, -50%);
       "></mat-spinner>
       </mat-icon>
-      <mat-hint align="end">remaining {{20 - nin.value.length}}</mat-hint>
-      <mat-hint *ngIf="pattern_error">numbers only required.</mat-hint>
+      <mat-hint align="end">bado {{20 - nin.value.length}}</mat-hint>
+      <mat-hint *ngIf="pattern_error">Tumia namba tu.</mat-hint>
     </mat-form-field>
   </form>
 
   <div class="container my-5 top-inner">
-    <h1 class="logo-text display-4">Kadi yangu ya NIDA. </h1>
+    <h1 class="logo-text text-dark display-4">Kadi yangu ya NIDA. </h1>
     <div class="top-image">
-      <img [src]="photo" alt="photo">
+      <img [src]="photo" alt="picha">
     </div>
 
     <mat-card class="id-card">
@@ -72,8 +72,62 @@
     </mat-card>
     <hr>
     <mat-card>
+      <mat-card-content>
+        <mat-card-title class="logo-text display-4">Links Muhimu kuhusu NIDA. </mat-card-title>
+        <mat-divider></mat-divider>
+        <mat-list>
+          <div class='p-3'>
+            <h1>Fahamu Namba ya Nida (NIN)</h1>
+            <a class='' style="font-size: 18px;" href="https://services.nida.go.tz/nidportal/get_nin.aspx">Fahamu Namba
+              ya NIDA (NIN)</a>
+          </div>
+          <hr>
+          <div class='p-3'>
+            <h1>NIDA</h1>
+            <a class='' style="font-size: 18px;" href="https://nida.go.tz/swahili/">NIDA - swahili</a>
+          </div>
+          <hr>
+
+          <div class='p-3'>
+            <h1>Welcome to NIDA Online Services</h1>
+            <a class='' style="font-size: 18px;" href="https://services.nida.go.tz/nidportal/">Welcome to NIDA Online Services</a>
+          </div>
+          <hr>
+
+          <div class='p-3'>
+            <h1>National Identification Authority (NIDA) - Tanzania eRegulations</h1>
+            <a class='' style="font-size: 18px;" href="https://tanzania.eregulations.org/objective/380?l=en">NIDA -
+              National Identification Authority</a>
+          </div>
+          <hr>
+
+          <div class='p-3'>
+            <h1>FOMU YA UTAMBULISHO FOMU YA ... - Tanzania eRegulations</h1>
+            <a class='' style="font-size: 18px;"
+              href="https://tanzania.eregulations.org/media/NIDA%20Application%20form%201A%20new.pdf">FOMU YA UTAMBULISHO</a>
+          </div>
+          <hr>
+
+          <div class='p-3'>
+            <h1>CITIZEN APPLICATION FORM NIDA</h1>
+            <a class='' style="font-size: 18px;"
+              href="https://nida.go.tz/swahili/wp-content/uploads/2019/04/CITIZEN-APPLICATION-FORM-NIDA.pdf">NIDA -
+              CITIZEN APPLICATION FORM NIDA</a>
+          </div>
+          <hr>
+
+          <div class='p-3'>
+            <h1>Mambo ya Kuzingatia wakati wa usajili - Mamlaka ya ...</h1>
+            <a class='' style="font-size: 18px;"
+              href="https://nida.go.tz/swahili/index.php/mambo-ya-kuzingatia-wakati-wa-usajili-2/">Mambo ya Kuzingatia
+              wakati wa usajili</a>
+          </div>
+        </mat-list>
+      </mat-card-content>
+      <mat-divider>
+      </mat-divider>
       <mat-card-actions>
-        <span>Connect with developers. </span>
+        <span>Connect with the developer. </span>
         <span styles="flex: 1 auto;"></span>
         <span>
           <a mat-flat-button color="primary" href="https://github.com/jackkweyunga">
