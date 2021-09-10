@@ -4,7 +4,7 @@
 <div class="main">
 
 
-  <form class="form nin-form" [formGroup]="ninForm" style="position: relative">
+  <!-- <form class="form nin-form" [formGroup]="ninForm" style="position: relative">
     <mat-form-field color="accent" class="w-100 text-white" appearance="fill">
       <mat-label>Tafuta kwa namba yako ya nida.</mat-label>
       <input #nin autocomplete="off" type="nida" formControlName="nin" maxlength="20" class="input-text" matInput
@@ -23,7 +23,7 @@
       <mat-hint align="end">bado {{20 - nin.value.length}}</mat-hint>
       <mat-hint *ngIf="pattern_error">Tumia namba tu.</mat-hint>
     </mat-form-field>
-  </form>
+  </form> -->
 
   <div class="container my-5 top-inner">
     <h1 class="logo-text text-dark display-4">Kadi yangu ya NIDA. </h1>
@@ -126,22 +126,10 @@
       </mat-card-content>
       <mat-divider>
       </mat-divider>
-      <mat-card-actions>
-        <span>Connect with the developer. </span>
-        <span styles="flex: 1 auto;"></span>
-        <span>
-          <a mat-flat-button color="primary" href="https://github.com/jackkweyunga">
-            view Github Profile
-          </a></span>
-      </mat-card-actions>
+
       <mat-divider [inset]="false">
       </mat-divider>
-      <mat-card-content class="pt-2">
-        <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-          data-type="VERTICAL" data-vanity="jack-k-b7354017a" data-version="v1"><a
-            class="badge-base__link LI-simple-link"
-            href="https://tz.linkedin.com/in/jack-k-b7354017a?trk=profile-badge"></a></div>
-      </mat-card-content>
+
     </mat-card>
   </div>
 </div>
